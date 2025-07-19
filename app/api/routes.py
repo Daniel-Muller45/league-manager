@@ -1,11 +1,11 @@
 from fastapi import FastAPI
-from models.league import LeagueRequest, LeagueResponse, Team
+from models.espn.league import LeagueRequest, LeagueResponse, Team
 from espn_api.football import League
 
 app = FastAPI()
 
 
-@app.post("/api/league", response_model=LeagueResponse)
+@app.post("/api/espn/league", response_model=LeagueResponse)
 def get_league(leagueInfo: LeagueRequest):
     league = League(
         league_id=leagueInfo.leagueId, 
