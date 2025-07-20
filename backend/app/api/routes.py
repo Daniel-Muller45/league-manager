@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from models.espn.league import LeagueRequest, LeagueResponse, Team
 from espn_api.football import League
+from sleeper_api.football.league import get_rosters
 
 app = FastAPI()
 
 
 @app.post("/api/espn/league", response_model=LeagueResponse)
-def get_league(leagueInfo: LeagueRequest):
+def get_espn_league(leagueInfo: LeagueRequest):
     league = League(
         league_id=leagueInfo.leagueId, 
         year=leagueInfo.year, 
@@ -22,3 +23,8 @@ def get_league(leagueInfo: LeagueRequest):
             for team in league.teams
         ]
     )
+
+
+@app.post("/api/sleeper/league")
+def get_sleeper_league(leagueId: str):
+    return get_rosters(leagueId)

@@ -17,3 +17,9 @@ def get_leagues(userId, sport, season):
         return response.json()
     else:
         print(f"Failed to retrieve leagues: {response.status_code}")
+
+
+# 710525595091517440 My user id
+print(get_leagues('710525595091517440', 'nfl', '2024'))
+
+# 1122923583736557568 My league if
