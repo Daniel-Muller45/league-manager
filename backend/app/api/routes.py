@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 from models.espn.league import LeagueRequest, LeagueResponse, Team
 from espn_api.football import League
 from sleeper_api.football.league import get_rosters
@@ -32,7 +33,9 @@ def get_espn_league(leagueInfo: LeagueRequest):
         ]
     )
 
+class SleeperRequest(BaseModel):
+    leagueId: str
 
 @app.post("/api/sleeper/league")
-def get_sleeper_league(leagueId: str):
-    return get_rosters(leagueId)
+def get_sleeper_league(body: SleeperRequest):
+    return get_rosters(body.leagueId)
